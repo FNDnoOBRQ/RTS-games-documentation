@@ -36,13 +36,46 @@ app.get('/informacje/:gameName', (req, res)=>{
             req.send("Nie znaleziono informacji :( <br><a href='/'>Return</a>")
             break;
     }
-})
+});
+
+
+app.get('/kontakt', (req, res)=>{
+    res.sendFile(path.join(__dirname, "kontakt.html"));
+});
+
+app.post('/sprawdzaniePol', (req, res)=>{
+    const name = req.body.name;
+    const message = req.body.message;
+    if(name != "" && message != ""){
+        res.redirect('/potwierdzenie');
+    }
+    else{
+        res.redirect('/kontakt');
+    }
+});
+
+
+app.get('/potwierdzenie', (req, res) =>{
+    res.send("Message has been accepted!")
+});
+
 
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, "mainPage.html"));
 });
 
+
+app.get('/api', (req, res) =>{
+    const array = [
+        {"first posible option: " : "Starcraft Brood War"},
+        {"second posible option: " : "Civilization V"},
+        {"third posible option: " : "Command & Conquer: Red Alert 2"},
+        {"fourth posible option: " : "Age of Empires II"},
+        {"fifth posible option: " : "Company of Heroes"}
+    ];
+    res.json(array);
+});
 
 
 
