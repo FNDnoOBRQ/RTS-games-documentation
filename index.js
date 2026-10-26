@@ -5,17 +5,26 @@ const app = express();
 const PORT = 3000;
 
 
+let temporary = "";
+
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 
+app.get('/wyszukaj/{:optionalArgument}', (req, res) => {
+    res.send(temporary + "<br><a href='/'>Return</a>");
+});
 
 app.get('/wyszukaj', (req, res)=>{
     const thisPath = req.query.input;
+    temporary = thisPath
     if(thisPath != null && thisPath != ""){
-        res.send(thisPath + " <br><a href='/'>Return</a>");
+        const parametrs = new URLSearchParams({
+            userInput: req.query.input,
+        });
+        res.redirect(`/wyszukaj/${encodeURI(parametrs.toString())}`);
     }
     else{
-        res.send("<form method='GET'>Enter something:<br><input type='text' name='input'><br><button type='submit'>Send</button></form><br><br><br><a href='/'>Return</a>");
+        res.send("<form action='/wyszukaj' method='GET'>Enter something:<br><input type='text' name='input'><br><button type='submit'>Search</button></form><br><br><br><a href='/'>Return</a>");
     }
 })
 
