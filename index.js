@@ -6,7 +6,7 @@ const PORT = 3000;
 
 
 app.use(express.urlencoded({extended: true}));
-
+app.use(cookieParser());
 
 
 app.get('/wyszukaj', (req, res)=>{
@@ -76,6 +76,42 @@ app.get('/api', (req, res) =>{
     ];
     res.json(array);
 });
+
+
+
+app.get('/preferencje', (req, res) => {
+    res.sendFile(path.join(__dirname, "preferencje.html"));
+});
+
+app.get('/usunCiasteczka', (req, res) =>{
+    res
+    .clearCookie('kategoria')
+    .clearCookie('cookie1')
+    .redirect("/preferencje");
+});
+
+app.post('/wynikPreferencji', (req, res) =>{
+    console.log(req.body.selector);
+    res
+    .cookie("kategoria", req.body.selector, {maxAge: 1000 * 3600 * 24 * 30})
+    .cookie("cookie1", "Cookie - 🍪")
+    .send(`
+        <!DOCTYPE html>
+        <html lang="en">
+            <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Document</title>
+        </head>
+        <body>
+            <p>First cookie: ${req.cookies.kategoria}</p>
+            <p>Second cookie: ${req.cookies.cookie1}</p>
+            <button onclick="window.location.href='/usunCiasteczka'">Delete cookies</button>
+        </body>
+        </html>
+    `);
+});
+
 
 
 
