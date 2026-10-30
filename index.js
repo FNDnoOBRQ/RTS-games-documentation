@@ -122,6 +122,27 @@ app.post('/wynikPreferencji', (req, res) =>{
 });
 
 
+app.get('/plik', (req, res) => {
+    res.sendFile(path.join(__dirname, "informator.txt"));
+});
+
+app.get('/pobierz', (req, res) =>{
+    res.download('informator.txt');
+});
+
+app.all('/dane', (req, res)=>{
+    res.send(`Metoda żądania: ${req.method}<br>Adres żądania: ${req.originalUrl}<br>Ip klienta: ${req.ip}`);
+});
+
+app.get('/status', (req, res)=>{
+    res.set('X-Serwis', "MojaStrona").send('Server works correctly');
+});
+
+
+app.all('/{:anything}', (req, res) => {
+    res.send("404 Not found");
+});
+
 
 
 app.listen(PORT, console.log(`Server is active! http://localhost:${PORT}`));
