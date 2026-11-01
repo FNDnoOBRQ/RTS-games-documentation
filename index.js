@@ -7,6 +7,7 @@ const PORT = 3000;
 
 let temporary = "";
 
+app.use(express.static(__dirname));
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 
@@ -33,16 +34,16 @@ app.get('/informacje/:gameName', (req, res)=>{
     const id = req.params.gameName;
     switch(id){
         case "10":
-            res.send("StarCraft 2 <br><a href='/'>Return</a>");
+            res.sendFile(path.join(__dirname, "starcraft2.html"));
             break;
         case "11":
-            res.send("Warcraft III <br><a href='/'>Return</a>");
+            res.sendFile(path.join(__dirname, "warcraft3.html"));
             break;
         case "95":
-            res.send("Command and Conquer <br><a href='/'>Return</a>");
+            res.sendFile(path.join(__dirname, "command.html"));
             break;
         default:
-            req.send("Nie znaleziono informacji :( <br><a href='/'>Return</a>")
+            res.send("Nie znaleziono informacji :( <br><a href='/'>Return</a>")
             break;
     }
 });
