@@ -4,17 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Preferencje</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            background-color: black;
+            color: yellow;
+        }
+
+        form{
+            position: absolute;
+            width: 14vw;
+            height: fit-content;
+            top: 10%;
+            left: 10%;
+
+            border: 1px solid yellow;
+            border-radius: 10px;
+            padding: 10px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        form > select{
+            margin-top: 30px;
+            margin-bottom: 30px;
+            background-color: black;
+            color: yellow;
+        }
+        form > select > option{
+            background-color: black;
+            color: yellow;
+        }
+        form > button{
+            position: relative;
+            background-color: black;
+            color: yellow;            
+            border: 1px solid yellow;
+        }
+        a{
+            text-decoration: none;
+            color: yellow;
+        }
+    </style>
 </head>
 <body>
     <form action="/wynikPreferencji" method="post">
-        <select name="selector" id="">
-        <option value="co-op">Co-op</option>    
+        <h3>Preferencje użytkownika dotyczące gier:</h3>
+        <select name="selector" id="selector">Wybierz:
+        <option value="co_op">Co-op</option>    
         <option value="campaign">campaign</option>    
         <option value="versus">Versus</option>    
         <option value="history">History of developing</option>    
         </select>
         <br><br>
-        <button type="submit">Send</button>
+        <button type="submit">Wyślij</button><br>
+        <a href="/">Powrót</a>
     </form>
 </body>
 </html>
