@@ -46,7 +46,7 @@ app.get('/wyszukaj', (req, res)=>{
         }
     }
     else{
-        res.send("<form action='/wyszukaj' method='GET'>Enter something:<br><input type='text' name='input'><br><button type='submit'>Search</button></form><br><br><br><a href='/'>Return</a>");
+        res.sendFile(path.join(__dirname, "search.html"));    
     }
 })
 
